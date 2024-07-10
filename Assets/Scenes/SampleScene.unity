@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: fcccd99fef86de84782a99b514f586d5, type: 2}
 --- !u!1 &27994041 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1385739182099216, guid: bb2d7edd579a5cf45ac5e123f025936d, type: 3}
@@ -403,7 +403,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &334607264
 MeshCollider:
@@ -1640,7 +1640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a236e510d79eb9847b3834f5761cc62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 795281228018390715, guid: 2b8fff50a42d65947835db5cc5cf57ae, type: 3}
   firePoint: {fileID: 1035220798}
   fireRate: 1
   projectileSpeed: 15
@@ -1745,7 +1745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4099628864422268, guid: bb2d7edd579a5cf45ac5e123f025936d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.40995216
+      value: 25.77
       objectReference: {fileID: 0}
     - target: {fileID: 4099628864422268, guid: bb2d7edd579a5cf45ac5e123f025936d, type: 3}
       propertyPath: m_LocalRotation.w
