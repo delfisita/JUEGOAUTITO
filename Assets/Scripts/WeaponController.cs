@@ -1,25 +1,30 @@
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
-{
-    public GameObject projectilePrefab;  // Prefab del proyectil
-    public Transform firePoint;          // Punto desde donde se dispara el proyectil
-    public float projectileSpeed = 20f;  // Velocidad del proyectil
 
-    void Update()
+public class Projectile : MonoBehaviour
+{
+    public float destroyTime = 5f; // Tiempo antes de que el proyectil se destruya automáticamente
+
+    void Start()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
+        // Destruir el proyectil después de un tiempo si no colisiona con nada
+        Destroy(gameObject, destroyTime);
     }
 
-    void Shoot()
+    void OnTriggerEnter(Collider other)
     {
-        // Crear el proyectil en el punto de disparo
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        // Asignarle una velocidad al proyectil
-        
-        
+        // Si el proyectil colisiona con un enemigo
+        if (other.CompareTag("Enemy"))
+        {
+            // Destruir al enemigo
+            Destroy(other.gameObject);
+            // Destruir el proyectil
+            Destroy(gameObject);
+        }
+        else if (!other.CompareTag("Player")) // Evita destruir el proyectil si colisiona con el jugador
+        {
+            // Destruir el proyectil en cualquier otra colisión
+            Destroy(gameObject);
+        }
     }
 }

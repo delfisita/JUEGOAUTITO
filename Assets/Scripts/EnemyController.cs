@@ -1,30 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public Transform[] patrolPoints;
-    private int currentPatrolIndex;
-    public float patrolSpeed = 3.5f;
-    public float chaseSpeed = 6f;
-    public float detectionRange = 20f;
-    public Transform player;
+    public float detectionRange = 10f; 
+    public float moveSpeed = 5f;
 
-    private NavMeshAgent agent;
-    private bool isChasing = false;
+    private Transform playerTransform; 
+    private bool isChasing = false; 
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = patrolSpeed;
-        GotoNextPatrolPoint();
+        
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        if (playerTransform == null)
+        {
+            Debug.LogError("No se encontró al jugador. Asegúrate de etiquetar al jugador como 'Player'.");
+        }
     }
 
     void Update()
     {
-        if (Vector3.Distance(player.position, transform.position) <= detectionRange)
+        if (playerTransform == null)
+            return; 
+
+       
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+       
+        if (distanceToPlayer <= detectionRange)
         {
             StartChasing();
         }
@@ -33,38 +37,27 @@ public class EnemyController : MonoBehaviour
             StopChasing();
         }
 
-        if (!isChasing)
+        
+        if (isChasing)
         {
-            if (!agent.pathPending && agent.remainingDistance < 0.5f)
-            {
-                GotoNextPatrolPoint();
-            }
-        }
-        else
-        {
-            agent.SetDestination(player.position);
-        }
-    }
+            Vector3 direction = (playerTransform.position - transform.position).normalized;
+            transform.position += direction * moveSpeed * Time.deltaTime;
 
-    void GotoNextPatrolPoint()
-    {
-        if (patrolPoints.Length == 0)
-            return;
-
-        agent.destination = patrolPoints[currentPatrolIndex].position;
-        currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+           
+            transform.LookAt(playerTransform);
+        }
     }
 
     void StartChasing()
     {
         isChasing = true;
-        agent.speed = chaseSpeed;
+        
     }
 
     void StopChasing()
     {
         isChasing = false;
-        agent.speed = patrolSpeed;
-        GotoNextPatrolPoint();
+        
     }
 }
+
